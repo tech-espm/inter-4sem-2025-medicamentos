@@ -12,7 +12,10 @@
 
 ## Participantes
 
-- [Nome](https://github.com/xxx)
+- [Bianca Fagundes](https://github.com/araujozb)
+- [Gustavo Dutra](https://github.com/snowdutra)
+- [Maria Gabriela Vieira](https://github.com/mgabriel4)
+- [Mateus Colmeal](https://github.com/colmeal)
 
 ## Objetivos do Projeto
 

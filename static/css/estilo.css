@@ -5,22 +5,23 @@ img {
 html, body {
 	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
 	min-height: 100vh;
-	background: linear-gradient(45deg, var(--cor-1), var(--cor-2), var(--cor-3), var(--cor-4));
 
 }
 
-:root {
-	--cor-1: #012a4a;
-    --cor-2: #013a63;
-    --cor-3: #01497c;
-    --cor-4: #014f86;
-    --cor-5: #2a6f97;
-    --cor-6: #2c7da0;
-    --cor-7: #468faf;
-    --cor-8: #61a5c2;
-    --cor-9: #89c2d9;
-    --cor-10: #a9d6e5;
+@font-face{
+	font-family: Chetta;
+	src: url("../fonts/ChettaVissto.ttf") format("truetype");
+}
 
+:root {
+	--cor-1: #b40a10;
+	--cor-2: #ed1d24;
+	--cor-3: #51ace4;
+	--cor-4: #3477a6;
+	--cor-5: #215274;
+	--cor-6: #0097a7;
+	--cor-7: #00838f;
+	--cor-8: #006064;
 }
 
 .limitador {
@@ -33,11 +34,11 @@ html, body {
 	flex-direction: column;
 	flex-wrap: nowrap;
 
-	font-family: Signika Negative;
+	font-family: Chetta,;
 }
 
 .navbar {
-	background: linear-gradient(50deg, rgba(4, 41, 74, 0.47), rgba(42, 111, 151, 0.489));
+	background: linear-gradient(50deg, var(--cor-4), var(--cor-5), var(--cor-6));
 	backdrop-filter: blur(30px);
 	border-bottom: 1px solid rgba(169, 214, 229, 0.15);
 	box-shadow: 0 4px 12px rgba(1, 66, 122, 0.4);
@@ -45,7 +46,7 @@ html, body {
 	margin: 20px;
 }
 .navbar a {
-	color: var(--cor-10);
+	color: whitesmoke;
 	text-decoration: none;
 	font-size: 1.1rem;
 }
@@ -53,20 +54,6 @@ html, body {
 .navbar-collapse {
 	justify-content: center;
 }
-
-h1 {
-    color: var(--cor-10);
-    text-shadow: 0 4px 12px rgba(1, 66, 122, 0.4);
-    font-size: 2.8rem;
-    letter-spacing: 1.5px;
-    position: relative;
-}
-
-p, h2, h3, h4, h5, h6 {
-	text-shadow: 0 4px 12px rgba(1, 66, 122, 0.4);
-	color: var(--cor-10);
-}
-
 
 .conteudo {
 	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
@@ -79,7 +66,10 @@ p, h2, h3, h4, h5, h6 {
 }
 
 .link-rodape, .link-rodape:hover {
-	color: white;
+	color: black;
 	text-decoration: none;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: Chetta;
+}

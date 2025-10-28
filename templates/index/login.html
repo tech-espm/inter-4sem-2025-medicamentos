@@ -1,0 +1,62 @@
+<style>
+    @font-face{
+        font-family: Chetta;
+        src: url("../fonts/ChettaVissto.ttf") format("truetype");
+    }
+
+    :root {
+        --cor-1: #b40a10;
+        --cor-2: #ed1d24;
+        --cor-3: #51ace4;
+        --cor-4: #3477a6;
+        --cor-5: #215274;
+        --cor-6: #0097a7;
+        --cor-7: #00838f;
+        --cor-8: #006064;
+    }
+
+    .limitador {
+        max-width: 1200px;
+        margin: 0px auto;
+
+        /* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .container{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--cor-3);
+        border-radius: 60px;
+        font-family: Chetta;
+    }
+</style>
+
+<body>
+    <div class="limitador">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="text-center mb-4">Login</h2>
+                </div>
+                <div class="col-md-6">
+                    <form method="POST" action="/login">
+                        <div class="form-group mb-3">
+                            <label for="username">Usuário</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

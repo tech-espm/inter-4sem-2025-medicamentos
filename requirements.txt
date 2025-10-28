@@ -1,4 +1,7 @@
-flask
+Flask[async]==3.0.3
+requests==2.31.0
+sqlalchemy
+mysql-connector-python
 selenium
 pandas
 matplotlib
