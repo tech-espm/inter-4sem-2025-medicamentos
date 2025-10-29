@@ -6,19 +6,19 @@ import pandas as pd
 
 driver = webdriver.Chrome()
 driver.set_page_load_timeout(300)
-dados = []  # Moved initialization of 'dados' here
+dados = [] 
 
-for n in range(1, 146):
-    driver.get(f"https://www.drogasil.com.br/medicamentos/medicina-natural.html?p={n}")
+for n in range(1, 181):
+    driver.get(f"https://www.drogaraia.com.br/medicamentos/remedios.html?page={n}")
     precos = WebDriverWait(driver, 20).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.Pricestyles__ProductPriceStyles-sc-118x8ec-0.bMEbfn.price"))
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.sc-17561f71-0.hHHZnG.price"))
     )
     marcas = WebDriverWait(driver, 20).until(
         EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.product-brand"))
     )
     produtos = WebDriverWait(driver, 20).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "h2.ProductCardNamestyles__ProductNameStyles-sc-1l5s4fj-0.cuGHOR.product-card-name"))
-    )
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "h2.sc-21abf319-0.eJHuBu.product-card-name"))
+    )                                                                                         
 
     for nome, preco, marca in zip(produtos, precos, marcas):
         dados.append({
@@ -28,6 +28,6 @@ for n in range(1, 146):
         })
 
 df = pd.DataFrame(dados)
-df.to_csv("medicamentos_naturais_drogasil.csv", index=False, encoding="utf-8-sig")
+df.to_csv("medicamentos_drogaraia.csv", index=False, encoding="utf-8-sig")
 
 driver.quit()

@@ -14,14 +14,21 @@ html, body {
 }
 
 :root {
-	--cor-1: #b40a10;
-	--cor-2: #ed1d24;
-	--cor-3: #51ace4;
-	--cor-4: #3477a6;
-	--cor-5: #215274;
-	--cor-6: #0097a7;
-	--cor-7: #00838f;
-	--cor-8: #006064;
+	--cor-1: #b40a10; /* vermelho escuro */
+	--cor-2: #ed1d24; /* vermelho primário */
+	--cor-3: #51ace4; /* azul claro */
+	--cor-4: #3477a6; /* azul médio */
+	--cor-5: #215274; /* azul escuro */
+	--cor-6: #0097a7; /* ciano */
+	--cor-7: #00838f; /* ciano escuro */
+	--cor-8: #006064; /* teal profundo */
+
+	--bg: #f7fbff;
+	--text: #0f172a;
+	--muted: #475569;
+	--card: #ffffff;
+	--radius: 16px;
+	--shadow: 0 10px 30px rgba(0,0,0,.08);
 }
 
 .limitador {
@@ -37,22 +44,77 @@ html, body {
 	font-family: Chetta,;
 }
 
-.navbar {
-	background: linear-gradient(50deg, var(--cor-4), var(--cor-5), var(--cor-6));
-	backdrop-filter: blur(30px);
-	border-bottom: 1px solid rgba(169, 214, 229, 0.15);
-	box-shadow: 0 4px 12px rgba(1, 66, 122, 0.4);
-	border-radius: 80px;
-	margin: 20px;
-}
-.navbar a {
-	color: whitesmoke;
-	text-decoration: none;
-	font-size: 1.1rem;
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+	margin: 0;
+	font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+	color: var(--text);
+	background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
 }
 
-.navbar-collapse {
-	justify-content: center;
+.brand-logo { height: 36px; width: auto; }
+
+/* Utilitários */
+.container { width: min(1120px, 92vw); margin: 0 auto; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; border: 0; cursor: pointer; font-weight: 700; letter-spacing: .2px; border-radius: 999px; padding: .9rem 1.2rem; transition: transform .15s ease, box-shadow .2s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: linear-gradient(135deg, var(--cor-2), var(--cor-1)); color: #fff; box-shadow: 0 8px 24px rgba(180,10,16,.25); }
+.btn-outline { background: #fff; color: var(--cor-5); border: 2px solid var(--cor-3); }
+.badge { display:inline-block; padding:.35rem .7rem; border-radius:999px; font-size:.8rem; font-weight:700; background: rgba(0,151,167,.12); color: var(--cor-7); }
+
+/* Header */
+header {
+	position: sticky; top: 0; z-index: 100;
+	background: rgba(255,255,255,.85); backdrop-filter: blur(8px);
+	border-bottom: 1px solid #e5eef6;
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: inherit; font-weight: 800; }
+.brand img { height: 36px; width: auto; }
+.nav-links { display: flex; gap: 1.2rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--muted); font-weight: 600; }
+.nav-links a:hover { color: var(--cor-5); }
+.nav-cta { display: flex; gap:.6rem; align-items:center; }
+.hamb { display:none; background:none; border:0; font-size:1.8rem; }
+
+
+/* Mobile menu */
+@media (max-width: 920px) {
+	.nav-links { display: none; }
+	.hamb { display: block; }
+	.mobile { position: fixed; inset: 72px 0 auto 0; background: #fff; border-top: 1px solid #e5eef6; box-shadow: var(--shadow); display: none; }
+	.mobile a { display:block; padding: 1rem 1.2rem; color: var(--muted); text-decoration:none; border-bottom:1px dashed #eaeaea; }
+	.mobile a:focus, .mobile a:hover { background: #f3f9ff; color: var(--cor-5); }
+	.mobile.show { display: block; }
+}
+
+.mobile {
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  inset: 72px 0 auto 0;
+  background: #fff;
+  border-top: 1px solid #e5eef6;
+  box-shadow: 0 4px 15px rgba(0,0,0,.1);
+  z-index: 99;
+}
+
+.mobile a {
+  display: block;
+  padding: 1rem 1.2rem;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dashed #eaeaea;
+}
+
+.mobile a:hover {
+  background: #f3f9ff;
+  color: var(--cor-5);
+}
+
+.mobile.show {
+  display: block; /* Só aparece quando tiver essa classe */
 }
 
 .conteudo {
@@ -72,4 +134,13 @@ html, body {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: Chetta;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+.fa{
+	font-size: 1.5rem;
 }

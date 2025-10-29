@@ -13,9 +13,9 @@ def index():
 def sobre():
     return render_template('index/sobre.html', titulo='Sobre Nós')
 
-@app.get('/dashboard')
-def dashboard():
-    return render_template('index/dashboard.html', titulo='Dashboard')
+@app.get('/triagem')
+def triagem():
+    return render_template('index/triagem.html', titulo='Triagem de Sintomas')
 
 @app.get('/login')
 def login():
