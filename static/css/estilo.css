@@ -8,11 +8,6 @@ html, body {
 
 }
 
-@font-face{
-	font-family: Chetta;
-	src: url("../fonts/ChettaVissto.ttf") format("truetype");
-}
-
 :root {
 	--cor-1: #b40a10; /* vermelho escuro */
 	--cor-2: #ed1d24; /* vermelho primário */
@@ -41,7 +36,7 @@ html, body {
 	flex-direction: column;
 	flex-wrap: nowrap;
 
-	font-family: Chetta,;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 * { box-sizing: border-box; }

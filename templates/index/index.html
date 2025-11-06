@@ -7,20 +7,56 @@
 
   <style>
     /* Hero */
-    .hero { padding: 5rem 0 3rem; }
-    .hero-title { font-size: clamp(2rem, 4vw + .5rem, 3rem); line-height:1.1; }
-    .hero-badge { background: rgba(0,151,167,.12); color: var(--cor-7); font-weight:700; border-radius:999px; padding:.35rem .7rem; display:inline-block; }
-    .hero-art img { max-width: 460px; width:100%; filter: drop-shadow(0 20px 40px rgba(0,0,0,.12)); }
-    .ribbon { position:absolute; right:-10px; top:14%; transform: rotate(6deg); background: linear-gradient(135deg, var(--cor-3), var(--cor-4)); color:#fff; padding:.45rem .75rem; border-radius:999px; font-weight:800; letter-spacing:.3px; box-shadow: var(--shadow); }
+    .hero { 
+        padding: 5rem 0 3rem; 
+    }
+    .hero-title { 
+        font-size: clamp(2rem, 4vw + .5rem, 3rem); 
+        line-height:1.1; 
+    }
+    .hero-badge { 
+        background: rgba(0,151,167,.12); 
+        color: var(--cor-7); 
+        font-weight:700; 
+        border-radius:999px; 
+        padding:.35rem .7rem; 
+        display:inline-block; 
+    }
+    .hero-art img { 
+        max-width: 460px; 
+        width:100%; filter: 
+        drop-shadow(0 20px 40px rgba(0,0,0,.12)); 
+    }
+    .ribbon { 
+        position:absolute; 
+        right:-10px; 
+        top:14%; 
+        transform: rotate(6deg); 
+        background: linear-gradient(135deg, var(--cor-3), var(--cor-4)); 
+        color:#fff; 
+        padding:.45rem .75rem; 
+        border-radius:999px; 
+        font-weight:800; 
+        letter-spacing:.3px; 
+        box-shadow: var(--shadow); 
+    }
 
-    /* Cards utilitários */
-    .card-soft { border: 1px solid #e9eef5; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card-soft { 
+        border: 1px solid #e9eef5; 
+        border-radius: var(--radius); 
+        box-shadow: var(--shadow); 
+    }
 
-    /* Mobile menu extra spacing */
-    .navbar { backdrop-filter: blur(6px); }
+    .navbar { 
+        backdrop-filter: blur(6px); 
+    }
 
-    /* Separator */
-    .separator { height:4px; background: linear-gradient(90deg, var(--cor-2), var(--cor-3)); border-radius:999px; opacity:.7; }
+    .separator { 
+        height:4px; 
+        background: linear-gradient(90deg, var(--cor-2), var(--cor-3)); 
+        border-radius:999px; 
+        opacity:.7; 
+    }
   </style>
 {% endblock %}
 
@@ -36,7 +72,7 @@
                 <p class="text-secondary-emphasis">Com a <strong>SintoMed</strong>, você acessa triagem inteligente de sintomas, agenda consultas e recebe orientações confiáveis. Tudo em um só lugar.</p>
                 <div class="d-flex flex-wrap gap-2 mt-3">
                     <a class="btn btn-primary" href="/triagem">Começar triagem</a>
-                    <a class="btn btn-outline-secondary" href="/servicos">Conhecer serviços</a>
+                    <a class="btn btn-outline-secondary" href="#servicos">Conhecer serviços</a>
                 </div>
                 <div class="card card-soft mt-3 p-3">
                     <strong>Transparência e segurança:</strong>
@@ -53,7 +89,6 @@
 
 <div class="separator container" aria-hidden="true"></div>
 
-<!-- Serviços -->
 <section id="servicos" class="py-5">
     <div class="container">
         <div class="row justify-content-between align-items-end g-2 mb-3">
@@ -62,22 +97,15 @@
                 <p class="text-secondary">Soluções pensadas para sua jornada de cuidado — da prevenção ao pós‑consulta.</p>
             </div>
         </div>
-        <div class="row g-3">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card card-soft h-100 p-3">
-                    <div class="d-inline-grid place-items-center bg-gradient rounded-3 mb-2 px-3 py-2 text-white" style="--bs-gradient: linear-gradient(135deg, var(--cor-3), var(--cor-4));">1</div>
-                    <h3 class="h5">Teleorientação</h3>
-                    <p class="text-secondary mb-0">Converse com profissionais de saúde e receba orientações seguras sem sair de casa.</p>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
+        <div class="row g-2">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-soft h-100 p-3">
                     <div class="d-inline-grid place-items-center bg-gradient rounded-3 mb-2 px-3 py-2 text-white" style="--bs-gradient: linear-gradient(135deg, var(--cor-3), var(--cor-4));">2</div>
                     <h3 class="h5">Triagem de sintomas</h3>
                     <p class="text-secondary mb-0">Uma triagem simples que sugere o melhor próximo passo com base nas suas respostas.</p>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-soft h-100 p-3">
                     <div class="d-inline-grid place-items-center bg-gradient rounded-3 mb-2 px-3 py-2 text-white" style="--bs-gradient: linear-gradient(135deg, var(--cor-3), var(--cor-4));">3</div>
                     <h3 class="h5">Agendamento inteligente</h3>
@@ -89,7 +117,6 @@
 </section>
 
 
-<!-- CTA Wide -->
 <section class="py-5" style="background: linear-gradient(90deg, rgba(237,29,36,.07), rgba(81,172,228,.10)); border-top:1px solid #e5eef6; border-bottom:1px solid #e5eef6;">
     <div class="container d-grid d-lg-flex align-items-center justify-content-between gap-3">
         <div>
@@ -100,12 +127,11 @@
     </div>
 </section>
 
-<!-- Sobre -->
 <section id="sobre" class="py-5">
 <div class="container">
     <div class="row g-4">
     <div class="col-12 col-lg-6">
-        <h2 class="h2">Sobre a SintoMed</h2>
+        <h2 class="h2">Motivações da SintoMed</h2>
         <p class="text-secondary">Unimos tecnologia e humanização para tornar o cuidado em saúde mais acessível, rápido e confiável.</p>
         <div class="row g-3">
         <div class="col-12 col-md-6">
@@ -119,22 +145,6 @@
             <h3 class="h5">Valores</h3>
             <p class="text-secondary mb-0">Ética, privacidade, inclusão e excelência clínica no centro de cada interação.</p>
             </div>
-        </div>
-        </div>
-    </div>
-    <div class="col-12 col-lg-6">
-        <div class="card card-soft p-3 border-0" style="background:linear-gradient(135deg, rgba(237,29,36,.06), rgba(81,172,228,.10));">
-        <h3 class="h5">Por que essas cores?</h3>
-        <p class="text-secondary">O vermelho (<code>--cor-1</code> e <code>--cor-2</code>) comunica atenção e cuidado. Os azuis (<code>--cor-3</code> a <code>--cor-8</code>) reforçam confiança e serenidade. Todo o design segue contraste AA para melhor leitura.</p>
-        <div class="d-flex flex-wrap gap-2">
-            <span class="badge text-bg-primary">#ed1d24</span>
-            <span class="badge" style="background:var(--cor-1); color:#fff;">#b40a10</span>
-            <span class="badge" style="background:var(--cor-3); color:#003148;">#51ace4</span>
-            <span class="badge" style="background:var(--cor-4); color:#fff;">#3477a6</span>
-            <span class="badge text-bg-dark">#215274</span>
-            <span class="badge" style="background:var(--cor-6); color:#003148;">#0097a7</span>
-            <span class="badge" style="background:var(--cor-7); color:#fff;">#00838f</span>
-            <span class="badge" style="background:var(--cor-8); color:#fff;">#006064</span>
         </div>
         </div>
     </div>
@@ -178,13 +188,21 @@
             </div>
             <div class="col-12 col-lg-5">
                 <div class="card card-soft p-3 text-center">
-                    <img src="SintoMed.png" alt="Logotipo SintoMed" style="height:56px; width:auto;" class="mx-auto mb-2"/>
-                    <p class="text-secondary m-0">Canais 24h • <strong class="text-dark">0800 123 456</strong> • atendimento@sintomed.com</p>
-                    <p class="text-secondary m-0">Av. Saúde, 1234 – São Paulo/SP</p>
+                    <img src="static/img/SintoMed.png" alt="Logotipo SintoMed" style="height:300px; width:auto;" class="mx-auto mb-2"/>
+                    <p class="text-secondary m-0">Canais 24h • <strong class="text-dark">(11) 99999 - 9999</strong> • atendimento@sintomed.com</p>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<section id="chat">
+    <h1>ChatBot (ChatterBot + Flask)</h1>
+    <div id="chat"></div>
+    <form id="form">
+      <input id="msg" placeholder="Escreva aqui..." autocomplete="off" />
+      <button>Enviar</button>
+    </form>
 </section>
 
 {% endblock %}
@@ -192,7 +210,6 @@
 {% block script %}
 
   <script>
-    // Preenche o ano
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Lógica de triagem (demo front-end)
@@ -217,6 +234,36 @@
       e.preventDefault();
       contactMsg.classList.remove('d-none');
       contactMsg.textContent='Mensagem enviada! Entraremos em contato em breve.';
+    });
+
+    const chat = document.getElementById("chat");
+    const form = document.getElementById("form");
+    const input = document.getElementById("msg");
+
+    function addMsg(text, who){
+        const div = document.createElement("div");
+        div.className = "row";
+        const bubble = document.createElement("div");
+        bubble.className = "msg " + (who === "user" ? "user" : "bot");
+        bubble.textContent = text;
+        div.appendChild(bubble);
+        chat.appendChild(div);
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const text = input.value.trim();
+        if(!text) return;
+        addMsg(text, "user");
+        input.value = "";
+        const r = await fetch("/api/chat", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ message: text })
+        });
+        const data = await r.json();
+        addMsg(data.reply, "bot");
     });
   </script>
 {% endblock %}
