@@ -1,0 +1,6 @@
+.venv/
+.env/
+raspagem/
+__pycache__/
+config.py
+*.csv
