@@ -7,7 +7,7 @@ def classificar_indicacao(txt: str) -> str:
         return "outros"
     t = txt.lower()
 
-    # === DOR / FEBRE / MÚSCULO / ARTICULAÇÃO ===
+    # DOR / FEBRE / MÚSCULO / ARTICULAÇÃO 
     if "dor e inflamação do sistema musculoesquelético" in t:
         return "dor_musculoesqueletica"
     if "dores musculares" in t or "contraturas musculares" in t:
@@ -25,7 +25,7 @@ def classificar_indicacao(txt: str) -> str:
     if "febre" in t:
         return "febre_dor_leve"
 
-    # === GRIPE / RESFRIADO / RINITE / SINUSITE ===
+    # GRIPE / RESFRIADO / RINITE / SINUSITE 
     if "gripe e resfriado comuns" in t:
         return "gripe_resfriado"
     if "sintomas de gripe, resfriado, rinite e sinusite" in t:
@@ -37,7 +37,7 @@ def classificar_indicacao(txt: str) -> str:
     if "rinite alérgica" in t:
         return "rinite_alergica"
 
-    # === TOSSE / SECREÇÃO BRONCOPULMONAR ===
+    # TOSSE / SECREÇÃO BRONCOPULMONAR 
     if "tosse seca, sem catarro" in t:
         return "tosse_seca"
     if "tosse seca" in t:
@@ -47,7 +47,7 @@ def classificar_indicacao(txt: str) -> str:
     if "secreções mucosas densas e viscosas nas vias respiratórias" in t:
         return "secrecao_broncopulmonar"
 
-    # === AZIA / REFLUXO / MÁ DIGESTÃO / CÓLICAS / DIARREIA / CONSTIPAÇÃO ===
+    # AZIA / REFLUXO / MÁ DIGESTÃO / CÓLICAS / DIARREIA / CONSTIPAÇÃO
     if "azia" in t or "queimação" in t or "regurgitação ácida" in t:
         return "azia_refluxo"
     if "dor de estômago" in t or "má digestão" in t or "distensão abdominal" in t or "eructação" in t or "flatulência" in t:
@@ -63,7 +63,7 @@ def classificar_indicacao(txt: str) -> str:
     if "regularização do hábito intestinal" in t:
         return "disturbios_habito_intestinal"
 
-    # === PELE / DERMATITE / MICOSE / ACNE / HERPES / PEDICULOSE / ESCABIOSE ===
+    #  PELE / DERMATITE / MICOSE / ACNE / HERPES / PEDICULOSE / ESCABIOSE
     if "acne vulgar" in t and "rosácea" in t:
         return "acne_rosacea"
     if "acne vulgar" in t:
@@ -103,7 +103,7 @@ def classificar_indicacao(txt: str) -> str:
     if "irritações da pele" in t:
         return "irritacao_pele"
 
-    # === CANDIDÍASE / INFECÇÕES FÚNGICAS GENITAIS ===
+    # CANDIDÍASE / INFECÇÕES FÚNGICAS GENITAIS
     if "candidíase vaginal e perianal" in t:
         return "candidiase_vaginal_perianal"
     if "candidíase vaginal" in t:
@@ -111,17 +111,17 @@ def classificar_indicacao(txt: str) -> str:
     if "candidíase vulvar e peniana" in t or "candidíase vulvar" in t:
         return "candidiase_vulvar_peniana"
 
-    # === HEMORROIDAS / REGIÃO ANAL ===
+    # HEMORROIDAS / REGIÃO ANAL
     if "hemorroidas" in t:
         return "hemorroidas"
 
-    # === OLHOS / LÁGRIMA ARTIFICIAL ===
+    # OLHOS 
     if "lubrificante oftálmico" in t or "lágrima artificial" in t:
         return "olho_seco_lubrificacao"
     if "irritação e prurido oculares" in t:
         return "irritacao_prurido_ocular"
 
-    # === BOCA / GARGANTA ===
+    # BOCA / GARGANTA
     if "inflamações e dores na mucosa da boca" in t or "dor de garganta" in t:
         return "inflamacao_boca_garganta"
     if "aftas" in t:
@@ -129,11 +129,11 @@ def classificar_indicacao(txt: str) -> str:
     if "desconfortos bucais da primeira dentição" in t:
         return "desconforto_primeira_denticao"
 
-    # === FÍGADO ===
+    # FÍGADO
     if "auxiliar no tratamento dos distúrbios do fígado" in t:
         return "disturbios_figado"
 
-    # === DIABETE / APETITE / MINERALIZAÇÃO / TABACO ===
+    # DIABETE / APETITE / MINERALIZAÇÃO / TABACO
     if "estimulante do apetite" in t:
         return "estimulo_apetite"
     if "mineralização óssea" in t:
@@ -141,27 +141,26 @@ def classificar_indicacao(txt: str) -> str:
     if "dependência do tabaco" in t:
         return "dependencia_tabaco"
 
-    # === URINÁRIO ===
+    # URINÁRIO
     if "dor, ardor, desconforto para urinar" in t:
         return "disuria_desconforto_urinario"
 
-    # === PARASITAS / VERMES ===
+    # PARASITAS / VERMES 
     if "ascaridíase" in t or "enterobíase" in t or "tricuríase" in t or "anci" in t or "teníase" in t:
         return "verminoses_intestinais"
 
-    # === CINETOSE / ENJOO DE VIAGEM ===
+    # CINETOSE / ENJOO
     if "cinetose" in t:
-        return "cinetose_enjoo_viagem"
+        return "cinetose_enjoo"
 
-    # === VASCULAR / HEMATOMAS ===
+    # VASCULAR / HEMATOMAS
     if "flebites e tromboflebites superficiais" in t or "hematomas e contusões" in t or "varizes" in t:
         return "processos_inflamatorios_veias_hematomas"
 
-    # === HIDRATAÇÃO / DIARREIA ===
+    # HIDRATAÇÃO / DIARREIA
     if "reidratação" in t and "diarreia aguda" in t:
         return "diarreia_aguda_reidratacao"
     
-        # === CASOS QUE CAÍRAM EM "OUTROS" ===
 
     if "dores moderadas a fortes" in t:
         return "dor_moderada_forte"
@@ -193,11 +192,10 @@ def classificar_indicacao(txt: str) -> str:
     if "pele seca e áspera" in t or "espessamento da pele" in t:
         return "pele_seca_espessada"
 
-    # corrigir erro de ortografia:
+    # correçãaaaao
     if "candisíase" in t or "candisíase vaginal e peniana" in t:
         return "candidiase_vulvar_peniana"
 
-    # corrigir micose frase curta:
     if "micoses superficiais da pele" in t:
         return "micose_pele"
 

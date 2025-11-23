@@ -9,3 +9,5 @@ seaborn
 numpy
 webdriver-manager
 beautifulsoup4
+tensorflow
+scikit-learn
