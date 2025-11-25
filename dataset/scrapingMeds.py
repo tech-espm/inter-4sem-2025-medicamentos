@@ -1,8 +1,9 @@
 import requests
 import pandas as pd
 from io import StringIO
+import config
 
-url = "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000285&seqAto=000&valorAno=2024&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true"
+url = config.urlbasecsv
 headers = {"User-Agent": "Mozilla/5.0"}
 
 resp = requests.get(url, headers=headers)
