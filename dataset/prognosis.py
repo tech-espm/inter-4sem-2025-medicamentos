@@ -218,3 +218,30 @@ for linha in outros:
 
 df.to_csv("dataset/tabela_diagnostico.csv", index=False, encoding="utf-8-sig")
 print("Arquivo salvo com sucesso!")
+
+
+
+def main():
+    print("Carregando CSV...")
+    df = pd.read_csv("dataset/tabela_anvisa_limpa.csv", encoding="utf-8")
+
+    print("Gerando coluna diagnostico_regra...")
+    df["diagnostico_regra"] = df["Indicacao"].apply(classificar_indicacao)
+
+    print("Gerando one-hot (binário 0/1)...")
+    ohe = pd.get_dummies(df["diagnostico_regra"], prefix="diag")
+
+    
+    ohe = ohe.astype(int)
+
+    print("Concatenando tabelas...")
+    df_final = pd.concat([df, ohe], axis=1)
+
+    print("Salvando arquivo final...")
+    df_final.to_csv("dataset/tabela_diagnostico_onehot.csv", index=False, encoding="utf-8-sig")
+
+    print("Processo finalizado com sucesso (0/1 garantido)!")
+
+
+if __name__ == "__main__":
+    main()
