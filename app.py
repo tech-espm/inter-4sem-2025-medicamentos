@@ -1,6 +1,6 @@
 from flask import Flask, render_template, json, request, Response, session, redirect, url_for, jsonify
 import config
-import banco
+import banco as banco
 from datetime import datetime
 
 app = Flask(__name__)

@@ -10,8 +10,6 @@ resp = requests.get(url, headers=headers)
 resp.encoding = "latin-1"
 html = resp.text
 
-
-
 tabelas = pd.read_html(StringIO(html))
 df = tabelas[0]
 
