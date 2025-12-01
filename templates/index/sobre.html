@@ -4,105 +4,216 @@
 
 {% block head %}
 <style>
-    .subtitle {
-        font-size: 1.25rem;
-        color: #555;
+    .hero-sobre {
+        text-align: center;
+        padding: 4rem 1rem 2rem;
     }
-    .img-fluid {
-        max-width: 200px;
-        height: auto;
+
+    .hero-sobre h1 {
+        color: var(--cor-5);
+        font-size: 3rem;
+        margin-bottom: .5rem;
     }
+
+    .hero-sobre p {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.15rem;
+    }
+
+    .section {
+        padding: 3rem 0;
+    }
+
+    h2 {
+        color: var(--cor-5);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .icon-box {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        height: 100%;
+        transition: .2s;
+    }
+
+    .icon-box:hover {
+        transform: translateY(-4px);
+    }
+
+    .icon-box h4 {
+        color: var(--cor-4);
+        font-weight: bold;
+    }
+
+    .icon-box p {
+        color: var(--muted);
+        margin-top: .4rem;
+        font-size: .95rem;
+    }
+
+    .perfil {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .perfil img {
+        max-width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    }
+
+    .perfil h3 {
+        font-size: 1.2rem;
+        color: var(--cor-5);
+        margin-top: .7rem;
+    }
+
+    .perfil p {
+        color: var(--muted);
+        margin-bottom: .5rem;
+    }
+
+    .perfil i {
+        font-size: 28px;
+        transition: .2s;
+    }
+
+    .perfil i:hover {
+        color: var(--cor-3);
+        transform: translateY(-2px);
+    }
+
+    .tecnologia {
+        padding: 3rem 1rem;
+        background: linear-gradient(90deg, var(--cor-6), var(--cor-7));
+        border-radius: 20px;
+        margin-top: 4rem;
+    }
+
+    .tecnologia p, .tecnologia li {
+        color: var(--cor-5);
+        font-size: 1.05rem;
+    }
+
 </style>
 {% endblock %}
 
 {% block body %}
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Sobre o SintoMed</h1>
-            <p>O SintoMed é uma plataforma dedicada a fornecer informações precisas e atualizadas sobre medicamentos OTC's. Nosso maior objetivo é garantir que os usuários tenham acesso fácil a informações relevantes e confiáveis em relação a esses medicamentos.</p>           
-            <h2 class="h2">Motivações da SintoMed</h2>
-            <p class="text-secondary">Unimos tecnologia e humanização para tornar o cuidado em saúde mais acessível, rápido e confiável.</p>
-            <div class="row g-3">
-                <div class="col-12 col-md-6">
-                    <div class="card card-soft h-100 p-3">
-                    <h3 class="h5">Missão</h3>
-                    <p class="text-secondary mb-0">Empoderar pessoas com informações de qualidade e acesso ágil a profissionais de saúde.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="card card-soft h-100 p-3">
-                    <h3 class="h5">Valores</h3>
-                    <p class="text-secondary mb-0">Ética, privacidade, inclusão e excelência clínica no centro de cada interação.</p>
-                    </div>
-                </div>
-            </div>    
-        </div>
-        <div class="col-md-6">
-            <h1>Nosso Time</h1>
-            <p>Somos uma equipe de desenvolvedores e profissionais de saúde comprometidos em facilitar o acesso a informações sobre medicamentos.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="col-md-6">
-                        <img src="/static/img/bianca-2.jpg" alt="Bianca Cristiane Fagundes de Araújo" class="img-fluid rounded-circle mb-2" />
-                        <h3 class="subtitle text-center">Bianca Cristiane Fagundes de Araújo</h3>
-                        <p class="text-center">Desenvolvedora Full Stack</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><a href="https://www.linkedin.com/in/bianca-araujo-fagundes/"><i class="fa-brands fa-linkedin" style="font-size: 30px;"></i></a></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><a href="https://github.com/araujozb"><i class="fa-brands fa-github" style="font-size: 30px;"></i></a></p>
-                            </div>
-                        </div>
+<!-- HERO -->
+<section class="hero-sobre">
+    <h1>Sobre o SintoMed</h1>
+    <p>O SintoMed é uma plataforma dedicada a fornecer informações confiáveis sobre medicamentos OTC's, tornando o cuidado em saúde mais prático, claro e acessível.</p>
+</section>
 
-                    </div>
-                    <div class="col-md-6">
-                        <img src="/static/img/gu.jpeg" alt="Gustavo Dutra Telles" class="img-fluid rounded-circle mb-2" />
-                        <h3 class="subtitle text-center">Gustavo Dutra Telles</h3>
-                        <p class="text-center">Desenvolvedor Back End</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><a href="https://www.linkedin.com/in/gustavo-dutra-/"><i class="fa-brands fa-linkedin" style="font-size: 30px; color: var(--5);"></i></a></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><a href="https://github.com/snowdutra"><i class="fa-brands fa-github" style="font-size: 30px;"></i></a></p>
-                            </div>
-                        </div>
-                    </div>
+<div class="container">
+
+    <!-- MOTIVAÇÃO -->
+    <section class="section">
+        <h2>Motivações da SintoMed</h2>
+        <p class="text-secondary text-center mb-4">
+            Unimos tecnologia e humanização para transformar o cuidado em saúde.
+        </p>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <h4>Tecnologia com Propósito</h4>
+                    <p>Usamos IA para gerar impacto positivo e promover acesso seguro à informação.</p>
                 </div>
-                <div class="col-md-6">
-                    <div class="col-md-6">
-                        <img src="/static/img/maria-2.jpg" alt="Maria Gabriela" class="img-fluid rounded-circle mb-2" />
-                        <h3 class="subtitle text-center">Maria Gabriela Vieira dos Santos</h3>
-                        <p class="text-center">Desenvolvedora Full Stack</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><a href="https://www.linkedin.com/in/maria-gabriela-vieira-tech/"><i class="fa-brands fa-linkedin" style="font-size: 30px;"></i></a></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><a href="https://github.com/mariagabriela-tech"><i class="fa-brands fa-github" style="font-size: 30px;"></i></a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="/static/img/mateus-2.png" alt="Mateus Colmeal Carnevale" class="img-fluid rounded-circle mb-2" />
-                        <h3 class="subtitle text-center">Mateus Colmeal Carnevale</h3>
-                        <p class="text-center">Desenvolvedor Front End</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><a href="https://www.linkedin.com/in/mateus-carnevale-colmeal-579690303/"><i class="fa-brands fa-linkedin" style="font-size: 30px;"></i></a></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><a href="https://github.com/colmeal"><i class="fa-brands fa-github" style="font-size: 30px;"></i></a></p>
-                            </div>
-                        </div>
-                    </div>  
+            </div>
+
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <h4>Acessibilidade</h4>
+                    <p>Interface intuitiva para pessoas com qualquer nível de familiaridade tecnológica.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="icon-box">
+                    <h4>Responsabilidade</h4>
+                    <p>Informamos, orientamos e educamos — sem substituir um profissional de saúde.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- NOSSO TIME -->
+    <section class="section">
+        <h2>Nosso Time</h2>
+        <p class="text-center text-secondary mb-5">
+            Equipe multidisciplinar da ESPM focada em tecnologia, saúde e inovação.
+        </p>
+
+        <div class="row justify-content-center g-4">
+
+            <!-- Bianca -->
+            <div class="col-md-3">
+                <div class="perfil">
+                    <img src="/static/img/bianca-2.jpg" alt="Bianca Cristiane Fagundes de Araújo">
+                    <h3>Bianca Cristiane</h3>
+                    <p>Desenvolvedora Full Stack</p>
+                    <a href="https://www.linkedin.com/in/bianca-araujo-fagundes/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/araujozb" class="ms-3"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Gustavo -->
+            <div class="col-md-3">
+                <div class="perfil">
+                    <img src="/static/img/gu.jpeg" alt="Gustavo Dutra Telles">
+                    <h3>Gustavo Dutra</h3>
+                    <p>Desenvolvedor Back End</p>
+                    <a href="https://www.linkedin.com/in/gustavo-dutra-/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/snowdutra" class="ms-3"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Maria -->
+            <div class="col-md-3">
+                <div class="perfil">
+                    <img src="/static/img/maria-2.jpg" alt="Maria Gabriela">
+                    <h3>Maria Gabriela</h3>
+                    <p>Desenvolvedora Full Stack</p>
+                    <a href="https://www.linkedin.com/in/maria-gabriela-vieira-tech/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/mariagabriela-tech" class="ms-3"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Mateus -->
+            <div class="col-md-3">
+                <div class="perfil">
+                    <img src="/static/img/mateus-2.png" alt="Mateus Colmeal Carnevale">
+                    <h3>Mateus Carnevale</h3>
+                    <p>Desenvolvedor Front End</p>
+                    <a href="https://www.linkedin.com/in/mateus-carnevale-colmeal-579690303/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/colmeal" class="ms-3"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TECNOLOGIAS -->
+    <section class="tecnologia">
+        <h2>Tecnologias</h2>
+        <p>O sistema utiliza:</p>
+        <ul>
+            <li>Flask — backend leve e robusto</li>
+            <li>OpenAI API — interpretação inteligente dos sintomas</li>
+            <li>Bootstrap + CSS customizado — interface moderna e responsiva</li>
+            <li>Jinja — integração dinâmica entre páginas</li>
+        </ul>
+    </section>
+
 </div>
 
 {% endblock %}

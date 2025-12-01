@@ -1,9 +1,12 @@
 from flask import Flask, render_template, json, request, Response, session, redirect, url_for, jsonify
+from sqlalchemy import create_engine, text
 import config
 import banco as banco
 from datetime import datetime
 
 app = Flask(__name__)
+
+engine = create_engine(config.conexao_banco)
 
 @app.get('/')
 def index():
@@ -18,20 +21,51 @@ def sobre():
 def triagem():
     return render_template('index/triagem.html', titulo='Triagem de Sintomas,')
 
-@app.get('/login')
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    erro = None
-    if request.method == 'POST':
-        email = request.form.get('username')
-        senha = request.form.get('password')
-        usuario = banco.buscar_usuario_por_email(email)
-        if usuario and usuario['senha'] == senha:
-            session['usuario_id'] = usuario['id']
-            session['usuario_nome'] = usuario['nome']
-            return redirect(url_for('dashboard'))
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        with engine.connect() as conn:
+            user = conn.execute(text("""
+                SELECT * FROM users
+                WHERE email = :email AND password = :password
+            """), {"email": email, "password": password}).fetchone()
+
+        if user:
+            return redirect(url_for("index"))
         else:
-            erro = 'Usuário ou senha inválidos'
-    return render_template('index/login.html', erro=erro, titulo='Login')
+            return "Login inválido", 401
+
+    return render_template("index/login.html")
+
+@app.route('/cadastro', methods=["GET", "POST"])
+def cadastro():
+    if request.method == "POST":
+        name = request.form["name"]
+        dataNascimento = request.form["age"]
+        cpf = request.form["cpf"]
+        email = request.form["email"]
+        senha = request.form["password"]
+
+        with engine.connect() as conn:
+            conn.execute(text("""
+                INSERT INTO usuario (name, dataNascimento, cpf, email, senha)
+                VALUES (:name, :dataNascimento, :cpf, :email, :senha)
+            """), {
+                "name": name,
+                "dataNascimento": dataNascimento,
+                "cpf": cpf,
+                "email": email,
+                "senha": senha
+            })
+            conn.commit()
+
+        return redirect(url_for("login"))
+    
+    return render_template("index/cadastro.html")
+
 
 @app.get('/dados')
 def dados():

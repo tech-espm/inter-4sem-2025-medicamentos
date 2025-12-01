@@ -25,7 +25,6 @@
             margin: 0;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             background-image: url(/static/img/background.jpg);
@@ -81,34 +80,6 @@
             color: white;
             text-decoration: underline;
         }
-
-        .cadastro-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(4px);
-            width: 100%;
-            max-width: 420px;
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        }
-
-        .btn-cadastro {
-            background: linear-gradient(135deg, var(--cor-3), var(--cor-4));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: .7rem 1.5rem;
-            font-weight: 600;
-            letter-spacing: .2px;
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .btn-cadastro:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        }
-
     </style>
 </head>
 <body>
@@ -128,7 +99,37 @@
             </div>
         </div>
 
-        <form method="POST" action="/login">
+        <form method="POST" action="/cadastro">
+            <div class="row" style="justify-content: center;">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="input-label" for="name">Nome Completo</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="input-label" for="age">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="age" name="age" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="input-label" for="doc">CPF</label>
+                        <input type="number" class="form-control" id="doc" name="doc" placeholder="000.000.000-00" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label class="input-label" for="age">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="age" name="age" required>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group mb-3">
                 <label class="input-label" for="username">Email</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="sintomed@email.com" required>
@@ -141,18 +142,6 @@
 
             <button class="btn-login" type="submit">Entrar</button>
         </form>
-    </div>
-
-    <div class="cadastro-card mt-4 p-3 text-center">
-        <p class="mb-2" style="color: var(--cor-5); font-weight: 500; font-size: 1rem;">
-            Ainda não tem uma conta?
-        </p>
-
-        <a href="/cadastro">
-            <button class="btn-cadastro">
-                Cadastre-se agora
-            </button>
-        </a>
     </div>
 
 </body>
