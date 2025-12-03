@@ -124,8 +124,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label class="input-label" for="age">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="age" name="age" required>
+                        <label class="input-label" for="genero">Gênero</label>
+                        <select class="form-control" id="genero" name="genero" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="mulher-cis">Mulher Cis</option>
+                            <option value="homem-cis">Homem Cis</option>
+                            <option value="mulher-trans">Mulher Trans</option>
+                            <option value="homem-trans">Homem Trans</option>
+                            <option value="outros">Outros</option>
+                        </select>
                     </div>
                 </div>
             </div>

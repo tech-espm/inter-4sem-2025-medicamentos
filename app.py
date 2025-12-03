@@ -67,9 +67,27 @@ def cadastro():
     return render_template("index/cadastro.html")
 
 
-@app.get('/dados')
-def dados():
-    return render_template('index/dados.html', titulo='Dados do usuário')
+@app.get('/resultados')
+def resultados():
+    return render_template('index/resultados.html', titulo='Dados do usuário')
+
+@app.route("/api/grafico_marcas")
+def grafico_marcas():
+    with engine.connect() as conn:
+        resultado = conn.execute(text("""
+            SELECT m.nomeMarca AS marca, COUNT(md.idMedicamentos) AS total
+            FROM medicamentos md
+            JOIN marca m ON md.marca = m.idmarca
+            GROUP BY m.nomeMarca
+            ORDER BY total DESC;
+        """))
+
+        dados = resultado.fetchall()
+
+    marcas = [linha[0] for linha in dados]
+    totais = [linha[1] for linha in dados]
+
+    return jsonify({"marcas": marcas, "totais": totais})
 
 if __name__ == '__main__':
     app.run(host=config.host, port=config.port)
