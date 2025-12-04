@@ -47,7 +47,7 @@ def coletar_urls_pagina(pagina):
         try:
             links = card.find_elements(By.TAG_NAME, "a")
             product_url = None
-
+            
             for ln in links:
                 href = ln.get_attribute("href")
                 if not href:
