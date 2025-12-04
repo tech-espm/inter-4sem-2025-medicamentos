@@ -250,6 +250,7 @@ try:
             try:
                 print(f"\n[{i}/{len(todas_urls)}] Visitando: {url}")
                 driver.get(url)
+                time.sleep(2) 
 
                 # garante que a página carregou (título)
                 wait.until(
