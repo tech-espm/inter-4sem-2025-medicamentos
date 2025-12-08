@@ -65,7 +65,31 @@ header {
 	background: rgba(255,255,255,.85); backdrop-filter: blur(8px);
 	border-bottom: 1px solid #e5eef6;
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+
+
+/* Centraliza o menu dentro da navbar */
+#mainNav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;  /* coloca o bloco no centro da navbar */
+}
+
+/* Torna o grupo de links um flex controlável */
+#mainNav > .d-flex {
+    display: flex;
+    align-items: center;
+    width: 100%;   /* permite separar centro e ícone */
+    max-width: 600px; /* largura ideal do bloco, pode ajustar */
+    gap: 24px;
+    position: relative;
+}
+
+/* Ícone vai totalmente para a direita */
+#mainNav > .d-flex a:last-child {
+    margin-left: auto;
+}
+
+
 .brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: inherit; font-weight: 800; }
 .brand img { height: 36px; width: auto; }
 .nav-links { display: flex; gap: 1.2rem; align-items: center; }
@@ -73,6 +97,14 @@ header {
 .nav-links a:hover { color: var(--cor-5); }
 .nav-cta { display: flex; gap:.6rem; align-items:center; }
 .hamb { display:none; background:none; border:0; font-size:1.8rem; }
+.navbar-collapse {
+    flex-grow: 0 !important;   /* impede de ocupar 100% */
+    display: flex !important;
+    justify-content: center !important;
+    gap: 32px;
+}
+
+
 
 
 /* Mobile menu */
