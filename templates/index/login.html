@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
 
     
     <title>Login • SintoMed</title>
@@ -128,15 +129,21 @@
             </div>
         </div>
 
+        {% if cadastro_sucesso %}
+        <div class="alert alert-success mt-3" role="alert" style="border-radius: 12px; text-align: center;">
+            Cadastro concluído! Agora é só fazer o login.
+        </div>
+        {% endif %}
+
         <form method="POST" action="/login">
             <div class="form-group mb-3">
-                <label class="input-label" for="username">Email</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="sintomed@email.com" required>
+                <label class="input-label" for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="sintomed@email.com" required>
             </div>
 
             <div class="form-group mb-4">
-                <label class="input-label" for="password">Senha</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label class="input-label" for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
             </div>
 
             <button class="btn-login" type="submit">Entrar</button>

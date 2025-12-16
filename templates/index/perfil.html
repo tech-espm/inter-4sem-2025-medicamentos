@@ -1,0 +1,81 @@
+{% extends "layoutLogin.html" %}
+
+{% block head %}
+<style>
+
+.item-triagem {
+    vertical-align: middle;
+    background-color: #E6EFFF;
+    border-radius: 50px;
+    margin: 20px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Histórico de Triagens</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th> </th>
+                <th>Data</th>
+                <th>Sintomas</th>
+                <th>Recomendações</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if triagens %}
+                {% for triagem in triagens %}
+                <tr class="item-triagem">
+                    <td>{{ loop.index }}</td>
+                    <td><img src="/static/img/medicine.png" alt="Imagem da triagem" style="max-width: 35px;"></td>
+                    <td>{{ triagem.data }}</td>
+                    <td>{{ triagem.sintomas }}</td>
+                    <td>{{ triagem.recomendacoes }}</td>
+                    <td>
+                        <form method="POST" action="/triagem/{{ triagem.id }}/excluir" style="margin: 0;">
+                            <button type="submit" class="btn btn-link text-danger p-0" title="Excluir triagem" onclick="return confirm('Excluir esta triagem?');">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-secondary">Nenhuma triagem registrada ainda.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h1>Seu Dashboard</h1>
+    <canvas id="graficoMarcas" width="400" height="200"></canvas>
+</div>
+
+<script>
+fetch("/api/grafico_marcas")
+    .then(response => response.json())
+    .then(data => {
+        const ctx = document.getElementById('graficoMarcas');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.marcas,
+                datasets: [{
+                    label: 'Medicamentos por Marca',
+                    data: data.totais,
+                    borderWidth: 1
+                }]
+            }
+        });
+    });
+</script>
+
+{% endblock %}

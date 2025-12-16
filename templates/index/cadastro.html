@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
 
     
     <title>Login • SintoMed</title>
@@ -118,8 +119,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <label class="input-label" for="doc">CPF</label>
-                        <input type="number" class="form-control" id="doc" name="doc" placeholder="000.000.000-00" required>
+                        <label class="input-label" for="cpf">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -138,13 +139,13 @@
             </div>
 
             <div class="form-group mb-3">
-                <label class="input-label" for="username">Email</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="sintomed@email.com" required>
+                <label class="input-label" for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="sintomed@email.com" required>
             </div>
 
             <div class="form-group mb-4">
-                <label class="input-label" for="password">Senha</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label class="input-label" for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
             </div>
 
             <button class="btn-login" type="submit">Entrar</button>

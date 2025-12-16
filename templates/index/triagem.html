@@ -8,32 +8,34 @@
             <div class="col-12 col-lg-6">
                 <h2 class="h2">Triagem de sintomas</h2>
                 <p class="text-secondary">Este formulário não substitui avaliação médica. Em casos graves, procure atendimento de urgência.</p>
-                <form class="card card-soft p-3" id="triageForm" novalidate>
-                <div class="mb-3">
-                    <label class="form-label" for="nome">Nome</label>
-                    <input class="form-control" id="nome" name="nome" placeholder="Ex.: Maria Silva" required>
-                </div>
-                <div class="row g-3">
-                    <div class="col">
-                        <label class="form-label" for="idade">Idade</label>
-                        <input class="form-control" id="idade" name="idade" type="number" min="0" inputmode="numeric" required>
+                <form class="card card-soft p-3" id="triageForm" method="POST" action="/triagem" novalidate>
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="peso">Peso</label>
+                            <input type="number" class="form-control" id="peso" name="peso" placeholder="70 kg" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="altura">Altura</label>
+                            <input type="number" class="form-control" id="altura" name="altura" placeholder="170 cm" required>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label class="form-label" for="sexo">Sexo</label>
-                        <select class="form-select" id="sexo" name="sexo" required>
-                            <option value="" disabled selected>Selecione</option>
-                            <option>Feminino</option>
-                            <option>Masculino</option>
-                            <option>Outro / Prefiro não informar</option>
-                        </select>
+                    <div class="mt-3">
+                        <label class="form-label" for="sintomas">Descreva seus sintomas</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Febre" id="sintomaFebre" name="sintomas">
+                            <label class="form-check-label" for="sintomaFebre">
+                                Febre
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Dor de cabeça" id="sintomaCefaleia" name="sintomas">
+                            <label class="form-check-label" for="sintomaCefaleia">
+                                Dor de cabeça
+                            </label>
+                        </div>
+                        <textarea class="form-control mt-2" id="sintomasTexto" name="sintomas_texto" rows="3" placeholder="Outros sintomas ou detalhes..."></textarea>
                     </div>
-                </div>
-                <div class="mt-3">
-                    <label class="form-label" for="sintomas">Descreva seus sintomas</label>
-                    <textarea class="form-control" id="sintomas" name="sintomas" rows="4" placeholder="Ex.: Febre, dor de cabeça, tosse seca…" required></textarea>
-                </div>
-                <div class="row g-3 mt-1">
-                    <div class="col">
+                    <div class="g-3 mt-3">
                         <label class="form-label" for="duracao">Duração dos sintomas</label>
                         <select class="form-select" id="duracao" name="duracao" required>
                             <option value="" disabled selected>Selecione</option>
@@ -43,7 +45,7 @@
                             <option>Mais de 1 semana</option>
                         </select>
                     </div>
-                    <div class="col">
+                    <div class="g-3 mt-3">
                         <label class="form-label" for="intensidade">Intensidade</label>
                         <select class="form-select" id="intensidade" name="intensidade" required>
                             <option value="" disabled selected>Selecione</option>
@@ -52,12 +54,11 @@
                             <option>Forte</option>
                         </select>
                     </div>
-                </div>
-                <div class="mt-3 d-grid d-sm-inline-flex gap-2">
-                    <button class="btn btn-primary" type="submit">Gerar orientação</button>
-                    <button class="btn btn-outline-secondary" type="reset">Limpar</button>
-                </div>
-                <p id="triageMsg" class="mt-2 mb-0 text-info-emphasis d-none"></p>
+                    <div class="mt-3 d-grid d-sm-inline-flex gap-2">
+                        <button class="btn btn-primary" type="submit">Gerar orientação</button>
+                        <button class="btn btn-outline-secondary" type="reset">Limpar</button>
+                    </div>
+                    <p id="triageMsg" class="mt-2 mb-0 text-info-emphasis d-none"></p>
                 </form>
             </div>
         <div class="col-12 col-lg-6">

@@ -5,8 +5,25 @@ import banco as banco
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = "sintomed-secret-key"
 
 engine = create_engine(config.conexao_banco)
+
+def garantir_tabela_triagem():
+    """Cria tabela de triagem se ainda não existir."""
+    with engine.begin() as conn:
+        conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS triagem (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                idusuario INT NOT NULL,
+                peso FLOAT NULL,
+                sintomas TEXT NOT NULL,
+                duracao VARCHAR(50) NULL,
+                intensidade VARCHAR(50) NULL,
+                recomendacoes TEXT NULL,
+                data_triagem DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )
+        """))
 
 @app.get('/')
 def index():
@@ -17,28 +34,61 @@ def index():
 def sobre():
     return render_template('index/sobre.html', titulo='Sobre Nós')
 
-@app.get('/triagem')
+@app.route('/triagem', methods=["GET", "POST"])
 def triagem():
+    if request.method == "POST":
+        if "user_id" not in session:
+            return redirect(url_for("login"))
+
+        garantir_tabela_triagem()
+
+        sintomas_list = request.form.getlist("sintomas")
+        sintomas_extra = request.form.get("sintomas_texto") or ""
+        sintomas = ", ".join([s for s in sintomas_list if s])
+        if sintomas_extra:
+            sintomas = f"{sintomas}, {sintomas_extra}" if sintomas else sintomas_extra
+
+        dados_triagem = {
+            "idusuario": session["user_id"],
+            "peso": request.form.get("peso"),
+            "duracao": request.form.get("duracao"),
+            "intensidade": request.form.get("intensidade"),
+            "sintomas": sintomas or "Sintomas não informados",
+            "recomendacoes": "Avaliação inicial registrada. Consulte um profissional se os sintomas persistirem."
+        }
+
+        with engine.begin() as conn:
+            conn.execute(text("""
+                INSERT INTO triagem (idusuario, peso, sintomas, duracao, intensidade, recomendacoes)
+                VALUES (:idusuario, :peso, :sintomas, :duracao, :intensidade, :recomendacoes)
+            """), dados_triagem)
+
+        return redirect(url_for("perfil"))
+
     return render_template('index/triagem.html', titulo='Triagem de Sintomas,')
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form.get("email") or request.form.get("username")
+        senha = request.form.get("senha") or request.form.get("password")
 
         with engine.connect() as conn:
             user = conn.execute(text("""
-                SELECT * FROM users
-                WHERE email = :email AND password = :password
-            """), {"email": email, "password": password}).fetchone()
+                SELECT * FROM usuario
+                WHERE email = :email AND senha = :senha
+            """), {"email": email, "senha": senha}).fetchone()
 
         if user:
-            return redirect(url_for("index"))
+            mapping = getattr(user, "_mapping", {})
+            user_id = mapping.get("idusuario") or mapping.get("idUsuario") or mapping.get("id") or user[0]
+            session["user_id"] = user_id
+            return redirect(url_for("perfil"))
         else:
             return "Login inválido", 401
-
-    return render_template("index/login.html")
+        
+    cadastro_sucesso = request.args.get("cadastro") == "ok"
+    return render_template("index/login.html", cadastro_sucesso=cadastro_sucesso)
 
 @app.route('/cadastro', methods=["GET", "POST"])
 def cadastro():
@@ -47,29 +97,73 @@ def cadastro():
         dataNascimento = request.form["age"]
         cpf = request.form["cpf"]
         email = request.form["email"]
-        senha = request.form["password"]
+        senha = request.form["senha"]
+        genero = request.form["genero"]
 
         with engine.connect() as conn:
             conn.execute(text("""
-                INSERT INTO usuario (name, dataNascimento, cpf, email, senha)
-                VALUES (:name, :dataNascimento, :cpf, :email, :senha)
+                INSERT INTO usuario (nomeUsuario, dataNascimento, cpf, email, senha, genero)
+                VALUES (:nomeUsuario, :dataNascimento, :cpf, :email, :senha, :genero)
             """), {
-                "name": name,
+                "nomeUsuario": name,
                 "dataNascimento": dataNascimento,
                 "cpf": cpf,
                 "email": email,
-                "senha": senha
+                "senha": senha,
+                "genero": genero
             })
             conn.commit()
 
-        return redirect(url_for("login"))
+        return redirect(url_for("login", cadastro="ok"))
     
     return render_template("index/cadastro.html")
 
 
-@app.get('/resultados')
-def resultados():
-    return render_template('index/resultados.html', titulo='Dados do usuário')
+@app.get('/perfil')
+def perfil():
+    triagens = []
+    user_id = session.get("user_id")
+
+    if user_id:
+        garantir_tabela_triagem()
+        with engine.connect() as conn:
+            resultado = conn.execute(text("""
+                SELECT id, data_triagem, sintomas, recomendacoes
+                FROM triagem
+                WHERE idusuario = :idusuario
+                ORDER BY data_triagem DESC
+                LIMIT 50
+            """), {"idusuario": user_id}).mappings().all()
+
+        for linha in resultado:
+            data_formatada = ""
+            if linha.get("data_triagem"):
+                data_formatada = linha["data_triagem"].strftime("%d/%m/%Y %H:%M")
+
+            triagens.append({
+                "id": linha.get("id"),
+                "data": data_formatada,
+                "sintomas": linha.get("sintomas", ""),
+                "recomendacoes": linha.get("recomendacoes", "")
+            })
+
+    return render_template('index/perfil.html', titulo='Dados do usuário', triagens=triagens)
+
+
+@app.post("/triagem/<int:triagem_id>/excluir")
+def excluir_triagem(triagem_id):
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    garantir_tabela_triagem()
+    with engine.begin() as conn:
+        conn.execute(text("""
+            DELETE FROM triagem
+            WHERE id = :triagem_id AND idusuario = :idusuario
+        """), {"triagem_id": triagem_id, "idusuario": user_id})
+
+    return redirect(url_for("perfil"))
 
 @app.route("/api/grafico_marcas")
 def grafico_marcas():
