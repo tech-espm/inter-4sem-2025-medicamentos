@@ -11,7 +11,7 @@ html, body {
 :root {
 	--cor-1: #b40a10; /* vermelho escuro */
 	--cor-2: #ed1d24; /* vermelho primário */
-	--cor-3: #51ace4; /* azul claro */
+	--cor-3: #f9f9f9; /* azul claro */
 	--cor-4: #3477a6; /* azul médio */
 	--cor-5: #215274; /* azul escuro */
 	--cor-6: #0097a7; /* ciano */
@@ -279,4 +279,205 @@ a{
 /* Aumenta o padding vertical do hero */
 section.hero{
   padding: 110px 0 90px !important;
+}
+
+
+/* Fonte padrão da página Sobre */
+.hero-sobre,
+.hero-sobre h1,
+.hero-sobre p,
+.section,
+.section h2,
+.icon-box,
+.icon-box h4,
+.icon-box p,
+.perfil h3,
+.perfil p,
+.tecnologia,
+.tecnologia p,
+.tecnologia li {
+    font-family: "Inter", sans-serif;
+}
+
+.hero-sobre h1{
+    font-weight: 700;   /* igual ao hero principal */
+}
+
+.section h2{
+    font-weight: 600;
+}
+
+.icon-box h4{
+    font-weight: 600;
+}
+
+
+/* Fonte e alinhamento geral da seção */
+section.tecnologia{
+  font-family: "Inter", sans-serif !important;
+}
+
+/* Título da seção centralizado */
+section.tecnologia h2{
+  font-family: "Inter", sans-serif !important;
+  text-align: center !important;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  margin-bottom: 18px;
+}
+
+/* Texto de apoio com Inter e cor consistente */
+section.tecnologia p{
+  font-family: "Inter", sans-serif !important;
+}
+
+/* Card (icon-box) centralizado */
+section.tecnologia .icon-box{
+  text-align: center;
+  padding: 22px;
+}
+
+/* Imagens com o mesmo tamanho */
+section.tecnologia .icon-box img{
+  width: 160px;          /* mesmo tamanho para todas */
+  height: 90px;          /* ajusta a altura */
+  object-fit: contain;   /* não distorce */
+  display: block;
+  margin: 0 auto 14px;   /* centraliza e dá espaço */
+}
+
+/* Títulos dos cards centralizados e iguais */
+section.tecnologia .icon-box h4{
+  font-family: "Inter", sans-serif !important;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 8px 0 6px;
+}
+
+/* Texto dos cards */
+section.tecnologia .icon-box p{
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+  color: #5f6b76;
+}
+
+
+
+/* ===== TIPOGRAFIA GLOBAL DA HOME ===== */
+body{
+  font-family: "Inter", sans-serif;
+}
+
+/* HERO */
+.hero-title{
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.hero-title .text-secondary{
+  font-weight: 400;
+}
+
+/* Subtítulo do hero */
+.hero p{
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+/* ===== SERVIÇOS ===== */
+#servicos h2{
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+#servicos h3{
+  font-family: "Inter", sans-serif !important;
+  font-weight: 600;
+}
+
+#servicos p{
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+/* ===== CTA (Surgiu alguma dúvida?) ===== */
+section[style*="linear-gradient"] h2{
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700;
+}
+
+section[style*="linear-gradient"] p{
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+}
+
+/* ===== CONTATO ===== */
+#contato h2{
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700;
+}
+
+#contato label{
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+#contato input,
+#contato textarea,
+#contato button{
+  font-family: "Inter", sans-serif;
+}
+
+
+/* Faz os cards do contato terem a mesma altura */
+#contato .row{
+  align-items: stretch;
+}
+
+#contato .card-soft{
+  height: 100%;
+}
+#contato .col-lg-5 .card-soft{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* CTA com fundo mais estreito */
+.cta-faixa{
+  position: relative;
+  background: none !important; /* remove o fundo direto */
+}
+
+/* Fundo colorido centralizado e mais estreito */
+.cta-faixa::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  max-width: 1100px;            /* CONTROLA O TAMANHO HORIZONTAL */
+  margin: 0 auto;              /* centraliza */
+  background: linear-gradient(
+    90deg,
+    rgba(237,29,36,.07),
+    rgba(81,172,228,.10)
+  );
+  border-top: 1px solid #e5eef6;
+  border-bottom: 1px solid #e5eef6;
+  border-radius: 18px;
+  z-index: 0;
+}
+
+/* Garante que o conteúdo fique acima do fundo */
+.cta-faixa > *{
+  position: relative;
+  z-index: 1;
+}
+/* Ajusta o conteúdo um pouco para a esquerda */
+.cta-faixa .container{
+  padding-left: 2.5rem;   /* controla o quanto anda para a esquerda */
+  padding-right: 7.5rem;  /* mantém respiro do lado direito */
 }

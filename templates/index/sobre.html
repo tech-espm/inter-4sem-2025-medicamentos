@@ -90,18 +90,6 @@
         transform: translateY(-2px);
     }
 
-    .tecnologia {
-        padding: 3rem 1rem;
-        background: linear-gradient(90deg, var(--cor-6), var(--cor-7));
-        border-radius: 20px;
-        margin-top: 4rem;
-    }
-
-    .tecnologia p, .tecnologia li {
-        color: var(--cor-5);
-        font-size: 1.05rem;
-    }
-
 </style>
 {% endblock %}
 
@@ -184,7 +172,7 @@
                     <h3>Maria Gabriela</h3>
                     <p>Desenvolvedora Full Stack</p>
                     <a href="https://www.linkedin.com/in/maria-gabriela-vieira-tech/"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://github.com/mariagabriela-tech" class="ms-3"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://github.com/mgabriel4" class="ms-3"><i class="fa-brands fa-github"></i></a>
                 </div>
             </div>
 
@@ -202,18 +190,33 @@
         </div>
     </section>
 
+
+
+
     <!-- TECNOLOGIAS -->
     <section class="tecnologia">
         <h2>Tecnologias</h2>
-        <p>O sistema utiliza:</p>
-        <ul>
-            <li>Flask — backend leve e robusto</li>
-            <li>OpenAI API — interpretação inteligente dos sintomas</li>
-            <li>Bootstrap + CSS customizado — interface moderna e responsiva</li>
-            <li>Jinja — integração dinâmica entre páginas</li>
-        </ul>
+        <p class="text-secondary text-center mb-4">
+            O SintoMed é construído com tecnologias modernas para garantir desempenho, segurança e uma ótima experiência ao usuário.
+        </p>
+
+        <div class="row g-6 justify-content-center">
+            <div class="col-md-6">
+                <div class="icon-box">
+                    <img src="/static/img/1200px-Flask_logo.jpg">
+                    <h4>Flask</h4>
+                    <p>Backend leve e robusto</p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="icon-box">
+                    <img src="/static/img/Bootstrap.jpg">
+                    <h4>Bootstrap + CSS customizado</h4>
+                    <p>Interface moderna e responsiva.</p>
+                </div>
+            </div>
+        </div>
     </section>
-
 </div>
-
 {% endblock %}
