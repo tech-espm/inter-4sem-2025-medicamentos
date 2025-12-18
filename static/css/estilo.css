@@ -171,3 +171,112 @@ a{
 .fa{
 	font-size: 1.5rem;
 }
+
+
+
+
+/* Fonte base (sans) */
+.hero{
+  font-family: "Inter", sans-serif;
+}
+
+/* Badge */
+.hero-badge{
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #2b6ea4;
+  padding: 8px 18px;
+  margin-bottom: 14px;
+}
+
+/* Título principal (igual ao print: Inter) */
+.hero-title{
+  font-family: "Inter", sans-serif;
+  font-size: 36px;
+  line-height: 1.75;
+  font-weight: 700;          /* "Recomendação ágil e precisa," forte */
+  color: #2b6ea4;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+
+/* "sempre que precisar" mais leve e azul claro */
+.hero h1.hero-title span.text-secondary{
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: var(--cor-3, #51ace4) !important;
+}
+
+
+/* Força a cor somente no "sempre que precisar" (span.text-secondary dentro do h1) */
+.hero h1.hero-title span.text-secondary{
+  color: var(--cor-3, #51ace4) !important;
+}
+:root{
+  --cor-3: #51ace4;
+}
+
+/* Parágrafo (sans) */
+.hero p{
+  font-family: "Inter", sans-serif;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #5f6b76;
+  margin-top: 12px;
+}
+
+/* Botões (sans) */
+.hero .btn{
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Espaço entre texto e botões */
+.hero .d-flex{
+  margin-top: 20px;
+}
+
+/* Card de transparência */
+.hero .card-soft{
+  font-family: "Inter", sans-serif;
+  font-size: 13.5px;
+  color: #5f6b76;
+  margin-top: 18px;
+}
+
+.hero .card-soft strong{
+  font-weight: 600;
+  color: #2b6ea4;
+}
+
+/* Parágrafo → bem separado dos botões */
+.hero p{
+  margin-bottom: 40px;
+}
+
+/* Bloco dos botões → bem separado do card */
+.hero .d-flex{
+  margin-bottom: 42px;
+}
+
+/* Card de transparência com mais respiro */
+.hero .card-soft{
+  padding: 26px 28px;
+  border-radius: 16px;
+}
+
+/* Opcional: separação geral entre linhas de texto do card */
+.hero .card-soft p{
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+/* Aumenta o padding vertical do hero */
+section.hero{
+  padding: 110px 0 90px !important;
+}
