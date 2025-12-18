@@ -481,3 +481,9 @@ section[style*="linear-gradient"] p{
   padding-left: 2.5rem;   /* controla o quanto anda para a esquerda */
   padding-right: 7.5rem;  /* mantém respiro do lado direito */
 }
+
+/* Título "Triagem de sintomas" */
+#triagem h2{
+  font-family:"Inter", sans-serif !important;
+  letter-spacing: -0.2px;
+}
