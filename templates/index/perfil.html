@@ -3,43 +3,129 @@
 {% block head %}
 <style>
 
+/* ===============================
+   DASHBOARD – ESTILO EMPRESARIAL
+   =============================== */
+
+.dashboard-container {
+    padding: 2.5rem 1.5rem;
+}
+
+.dashboard-title {
+    font-size: 2.1rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+}
+
+.dashboard-subtitle {
+    color: #6c757d;
+    margin-bottom: 2.5rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.4rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+}
+
+.dashboard-card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.dashboard-card small {
+    color: #6c757d;
+}
+
+/* ===============================
+   ÁREA DOS GRÁFICOS
+   =============================== */
+
+.chart-container {
+    position: relative;
+    height: 260px;     /* CONTROLA O TAMANHO DOS GRÁFICOS */
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* ===============================
+   TABELA DE TRIAGENS
+   =============================== */
+
 .item-triagem {
     vertical-align: middle;
     background-color: #E6EFFF;
     border-radius: 50px;
-    margin: 20px;
 }
 
+.table thead th {
+    font-weight: 600;
+}
 
 </style>
 {% endblock %}
 
 {% block body %}
-<div>
-    <h1>Histórico de Triagens</h1>
-    <table class="table">
+
+<div class="container py-4">
+
+    <!-- ===============================
+         HISTÓRICO DE TRIAGENS
+         =============================== -->
+
+    <h1 class="mb-3">Histórico de Triagens</h1>
+
+    <table class="table align-middle">
         <thead>
             <tr>
                 <th>#</th>
-                <th> </th>
+                <th></th>
                 <th>Data</th>
                 <th>Sintomas</th>
                 <th>Recomendações</th>
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
             {% if triagens %}
                 {% for triagem in triagens %}
                 <tr class="item-triagem">
                     <td>{{ loop.index }}</td>
-                    <td><img src="/static/img/medicine.png" alt="Imagem da triagem" style="max-width: 35px;"></td>
+
+                    <td>
+                        <img src="/static/img/medicine.png"
+                             alt="Imagem da triagem"
+                             style="max-width: 35px;">
+                    </td>
+
                     <td>{{ triagem.data }}</td>
                     <td>{{ triagem.sintomas }}</td>
                     <td>{{ triagem.recomendacoes }}</td>
+
                     <td>
-                        <form method="POST" action="/triagem/{{ triagem.id }}/excluir" style="margin: 0;">
-                            <button type="submit" class="btn btn-link text-danger p-0" title="Excluir triagem" onclick="return confirm('Excluir esta triagem?');">
+                        <form method="POST"
+                              action="/triagem/{{ triagem.id }}/excluir"
+                              style="margin: 0;">
+                            <button type="submit"
+                                    class="btn btn-link text-danger p-0"
+                                    title="Excluir triagem"
+                                    onclick="return confirm('Excluir esta triagem?');">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </form>
@@ -48,34 +134,121 @@
                 {% endfor %}
             {% else %}
                 <tr>
-                    <td colspan="6" class="text-center text-secondary">Nenhuma triagem registrada ainda.</td>
+                    <td colspan="6" class="text-center text-secondary">
+                        Nenhuma triagem registrada ainda.
+                    </td>
                 </tr>
             {% endif %}
         </tbody>
     </table>
 
-    <h1>Seu Dashboard</h1>
-    <canvas id="graficoMarcas" width="400" height="200"></canvas>
+    <!-- ===============================
+         DASHBOARD ANALÍTICO
+         =============================== -->
+
+    <div class="dashboard-container">
+
+        <h1 class="dashboard-title">Seu Dashboard</h1>
+        <p class="dashboard-subtitle">
+            Visão analítica baseada nos dados reais do sistema SintoMed
+        </p>
+
+        <div class="dashboard-grid">
+
+            <!-- Medicamentos por laboratório -->
+            <div class="dashboard-card">
+                <h5>Medicamentos por laboratório</h5>
+                <small>Distribuição do portfólio por fabricante</small>
+                <div class="chart-container">
+                    <canvas id="graficoLaboratorio"></canvas>
+                </div>
+            </div>
+
+            <!-- Preço médio por marca -->
+            <div class="dashboard-card">
+                <h5>Preço médio por marca</h5>
+                <small>Posicionamento das marcas no mercado</small>
+                <div class="chart-container">
+                    <canvas id="graficoPrecoMarca"></canvas>
+                </div>
+            </div>
+
+            <!-- Substâncias mais utilizadas -->
+            <div class="dashboard-card">
+                <h5>Substâncias mais utilizadas</h5>
+                <small>Top 10 princípios ativos recorrentes</small>
+                <div class="chart-container">
+                    <canvas id="graficoSubstancia"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-<script>
-fetch("/api/grafico_marcas")
-    .then(response => response.json())
-    .then(data => {
-        const ctx = document.getElementById('graficoMarcas');
+<!-- ===============================
+     SCRIPTS DOS GRÁFICOS
+     =============================== -->
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.marcas,
-                datasets: [{
-                    label: 'Medicamentos por Marca',
-                    data: data.totais,
-                    borderWidth: 1
-                }]
-            }
-        });
+<script>
+const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,   // 🔥 ESSENCIAL
+    plugins: {
+        legend: { display: false }
+    },
+    scales: {
+        y: { beginAtZero: true }
+    }
+};
+
+// Medicamentos por laboratório
+fetch("/api/grafico/medicamentos-laboratorio")
+  .then(r => r.json())
+  .then(data => {
+    new Chart(document.getElementById("graficoLaboratorio"), {
+      type: "bar",
+      data: {
+        labels: data.map(d => d.laboratorio),
+        datasets: [{
+          data: data.map(d => d.total)
+        }]
+      },
+      options: chartOptions
     });
+  });
+
+// Preço médio por marca
+fetch("/api/grafico/preco-medio-marca")
+  .then(r => r.json())
+  .then(data => {
+    new Chart(document.getElementById("graficoPrecoMarca"), {
+      type: "bar",
+      data: {
+        labels: data.map(d => d.marca),
+        datasets: [{
+          data: data.map(d => d.preco)
+        }]
+      },
+      options: chartOptions
+    });
+  });
+
+// Substâncias mais utilizadas
+fetch("/api/grafico/substancias")
+  .then(r => r.json())
+  .then(data => {
+    new Chart(document.getElementById("graficoSubstancia"), {
+      type: "bar",
+      data: {
+        labels: data.map(d => d.substancia),
+        datasets: [{
+          data: data.map(d => d.total)
+        }]
+      },
+      options: chartOptions
+    });
+  });
 </script>
 
 {% endblock %}

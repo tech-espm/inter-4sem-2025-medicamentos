@@ -220,23 +220,63 @@ def excluir_triagem(triagem_id):
 
     return redirect(url_for("perfil"))
 
-@app.route("/api/grafico_marcas")
-def grafico_marcas():
+@app.route("/api/grafico/medicamentos-laboratorio")
+def grafico_medicamentos_laboratorio():
+    query = """
+        SELECT 
+            l.nomeLaboratorio,
+            COUNT(me.idmedicamento) AS total_medicamentos
+        FROM medicamento me
+        JOIN marca ma ON me.idmarca = ma.idmarca
+        JOIN laboratorio l ON ma.idlaboratorio = l.idlaboratorio
+        GROUP BY l.nomeLaboratorio
+        ORDER BY total_medicamentos DESC;
+    """
     with engine.connect() as conn:
-        resultado = conn.execute(text("""
-            SELECT m.nomeMarca AS marca, COUNT(md.idMedicamentos) AS total
-            FROM medicamentos md
-            JOIN marca m ON md.marca = m.idmarca
-            GROUP BY m.nomeMarca
-            ORDER BY total DESC;
-        """))
+        dados = conn.execute(text(query)).fetchall()
 
-        dados = resultado.fetchall()
+    return jsonify([
+        {"laboratorio": row[0], "total": row[1]} for row in dados
+    ])
 
-    marcas = [linha[0] for linha in dados]
-    totais = [linha[1] for linha in dados]
+@app.route("/api/grafico/preco-medio-marca")
+def grafico_preco_medio_marca():
+    query = """
+        SELECT 
+            ma.nomeMarca,
+            ROUND(AVG(me.preco), 2) AS preco_medio
+        FROM medicamento me
+        JOIN marca ma ON me.idmarca = ma.idmarca
+        GROUP BY ma.nomeMarca
+        ORDER BY preco_medio DESC;
+    """
+    with engine.connect() as conn:
+        dados = conn.execute(text(query)).fetchall()
 
-    return jsonify({"marcas": marcas, "totais": totais})
+    return jsonify([
+        {"marca": row[0], "preco": row[1]} for row in dados
+    ])
+
+@app.route("/api/grafico/substancias")
+def grafico_substancias():
+    query = """
+        SELECT 
+            s.nomeSubstancia,
+            COUNT(sm.idmedicamento) AS total_medicamentos
+        FROM substancia s
+        JOIN substancia_has_medicamento sm 
+            ON s.idsubstancia = sm.idsubstancia
+        GROUP BY s.nomeSubstancia
+        ORDER BY total_medicamentos DESC
+        LIMIT 10;
+    """
+    with engine.connect() as conn:
+        dados = conn.execute(text(query)).fetchall()
+
+    return jsonify([
+        {"substancia": row[0], "total": row[1]} for row in dados
+    ])
+
 
 if __name__ == '__main__':
     app.run(host=config.host, port=config.port)
