@@ -4,10 +4,14 @@ import config
 import banco as banco
 from datetime import datetime
 
+from models.recommender import recomendar
+from regras import aplicar_regras
+
 app = Flask(__name__)
 app.secret_key = "sintomed-secret-key"
 
 engine = create_engine(config.conexao_banco)
+
 
 def garantir_tabela_triagem():
     """Cria tabela de triagem se ainda não existir."""
@@ -18,21 +22,22 @@ def garantir_tabela_triagem():
                 idusuario INT NOT NULL,
                 peso FLOAT NULL,
                 sintomas TEXT NOT NULL,
-                duracao VARCHAR(50) NULL,
-                intensidade VARCHAR(50) NULL,
                 recomendacoes TEXT NULL,
                 data_triagem DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
             )
         """))
+
 
 @app.get('/')
 def index():
     hoje = datetime.today().strftime('%Y-%m-%d')
     return render_template('index/index.html', hoje=hoje)
 
+
 @app.get('/sobre')
 def sobre():
     return render_template('index/sobre.html', titulo='Sobre Nós')
+
 
 @app.route('/triagem', methods=["GET", "POST"])
 def triagem():
@@ -42,30 +47,81 @@ def triagem():
 
         garantir_tabela_triagem()
 
-        sintomas_list = request.form.getlist("sintomas")
-        sintomas_extra = request.form.get("sintomas_texto") or ""
-        sintomas = ", ".join([s for s in sintomas_list if s])
+        # ✅ lista de sintomas (snake_case) vinda do front
+        sintomas_list = [s for s in request.form.getlist("sintomas") if s]
+
+        # texto livre opcional
+        sintomas_extra = (request.form.get("sintomas_texto") or "").strip()
+
+        # texto consolidado para salvar/exibir
+        sintomas_texto = ", ".join(sintomas_list)
         if sintomas_extra:
-            sintomas = f"{sintomas}, {sintomas_extra}" if sintomas else sintomas_extra
+            sintomas_texto = f"{sintomas_texto}, {sintomas_extra}" if sintomas_texto else sintomas_extra
+
+        # ✅ peso SEMPRE definido (fora do try)
+        peso_raw = (request.form.get("peso") or "").strip()
+        try:
+            peso = float(peso_raw) if peso_raw else None
+        except ValueError:
+            peso = None
+
+        # fallback de recomendação (caso falhe)
+        recomendacoes_txt = (
+            "Avaliação inicial registrada. "
+            "Consulte um profissional se os sintomas persistirem."
+        )
+
+        # 🔎 recomendações + regras
+        try:
+            if sintomas_list:
+                df_recs = recomendar(sintomas_list, top_k=10)
+
+                resultado = aplicar_regras(
+                    sintomas_list,
+                    df_recs,
+                    texto_col="doc",
+                    score_col="score"
+                )
+
+                top5 = resultado.df.head(5)
+                alertas = resultado.alertas
+
+                nomes = (
+                    top5["nomeMedicamento"].astype(str).tolist()
+                    if "nomeMedicamento" in top5.columns else []
+                )
+
+                recomendacoes_txt = ""
+                if alertas:
+                    recomendacoes_txt += "ALERTAS: " + " | ".join(alertas) + " || "
+
+                if nomes:
+                    recomendacoes_txt += "Recomendações: " + ", ".join(nomes)
+                else:
+                    recomendacoes_txt += "Recomendações geradas."
+        except Exception as e:
+            recomendacoes_txt = (
+                "Não foi possível gerar recomendações automaticamente. "
+                f"({type(e).__name__})"
+            )
 
         dados_triagem = {
             "idusuario": session["user_id"],
-            "peso": request.form.get("peso"),
-            "duracao": request.form.get("duracao"),
-            "intensidade": request.form.get("intensidade"),
-            "sintomas": sintomas or "Sintomas não informados",
-            "recomendacoes": "Avaliação inicial registrada. Consulte um profissional se os sintomas persistirem."
+            "peso": peso,
+            "sintomas": sintomas_texto or "Sintomas não informados",
+            "recomendacoes": recomendacoes_txt
         }
 
         with engine.begin() as conn:
             conn.execute(text("""
-                INSERT INTO triagem (idusuario, peso, sintomas, duracao, intensidade, recomendacoes)
-                VALUES (:idusuario, :peso, :sintomas, :duracao, :intensidade, :recomendacoes)
+                INSERT INTO triagem (idusuario, peso, sintomas, recomendacoes)
+                VALUES (:idusuario, :peso, :sintomas, :recomendacoes)
             """), dados_triagem)
 
         return redirect(url_for("perfil"))
 
-    return render_template('index/triagem.html', titulo='Triagem de Sintomas,')
+    return render_template("index/triagem.html", titulo="Triagem de Sintomas")
+
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -86,9 +142,10 @@ def login():
             return redirect(url_for("perfil"))
         else:
             return "Login inválido", 401
-        
+
     cadastro_sucesso = request.args.get("cadastro") == "ok"
     return render_template("index/login.html", cadastro_sucesso=cadastro_sucesso)
+
 
 @app.route('/cadastro', methods=["GET", "POST"])
 def cadastro():
@@ -113,7 +170,7 @@ def cadastro():
             conn.commit()
 
         return redirect(url_for("login", cadastro="ok"))
-    
+
     return render_template("index/cadastro.html")
 
 
