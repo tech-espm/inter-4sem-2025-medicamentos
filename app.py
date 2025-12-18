@@ -95,19 +95,17 @@ def cadastro():
     if request.method == "POST":
         name = request.form["name"]
         dataNascimento = request.form["age"]
-        cpf = request.form["cpf"]
         email = request.form["email"]
         senha = request.form["senha"]
         genero = request.form["genero"]
 
         with engine.connect() as conn:
             conn.execute(text("""
-                INSERT INTO usuario (nomeUsuario, dataNascimento, cpf, email, senha, genero)
-                VALUES (:nomeUsuario, :dataNascimento, :cpf, :email, :senha, :genero)
+                INSERT INTO usuario (nomeUsuario, dataNascimento, email, senha, genero)
+                VALUES (:nomeUsuario, :dataNascimento, :email, :senha, :genero)
             """), {
                 "nomeUsuario": name,
                 "dataNascimento": dataNascimento,
-                "cpf": cpf,
                 "email": email,
                 "senha": senha,
                 "genero": genero

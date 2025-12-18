@@ -23,10 +23,6 @@ wait = WebDriverWait(driver, 10)
 # -------------------------------------------
 
 def raspar_marca():
-    """
-    Pega o nome da marca nesse padrão:
-    <p>Marca <b><a>Alivium</a></b></p>
-    """
     try:
         elem = wait.until(
             EC.presence_of_element_located((
@@ -130,7 +126,7 @@ def marca_ja_existe(sessao: Session, nome_marca: str, id_lab: int):
         text("""
             SELECT 1
             FROM marca
-            WHERE nomeMarca = :m AND laboratorio = :lab
+            WHERE nomeMarca = :m AND idlaboratorio = :lab
         """),
         {"m": nome_marca, "lab": id_lab}
     ).fetchone()
@@ -184,7 +180,7 @@ try:
 
                 sessao.execute(
                     text("""
-                        INSERT INTO marca (nomeMarca, laboratorio)
+                        INSERT INTO marca (nomeMarca, idlaboratorio)
                         VALUES (:nome, :lab)
                     """),
                     {"nome": nome_marca, "lab": id_lab}
